@@ -1,0 +1,107 @@
+=========================================
+HOW TO BUILD A WORLD AND INTERACT WITH IT
+=========================================
+Before jumping into the code, you may want to get acquainted with the existing functionality. A precompiled executable should be available for you to run.
+
+Java:
+A jar file compiled from the base implementation is provided. Install Java and use the following command to run it:
+> java -jar mud.jar
+
+Once you run the program, you will see the following text appear:
+
+You float in the void. Join a room with the command ‘movething player <room-id>’.
+
+It tells you to join a room, but the world starts out with no rooms, so first you will need to create a room. Do that with the following commands:
+
+> createroom kitchen
+> setname kitchen “Kitchen”
+> setdescription kitchen “Pots and pans hang from the walls. The counter is covered with flour.”
+
+The player object is automatically created for you, but you need to initialize it by placing the player in a room. Put the player in the room you just created, and then enter “look” to examine your current room from the player’s point of view.
+
+> movething player kitchen
+> look
+
+There isn’t much to interact with in this room, so let’s create something to put inside it.
+
+> creatething cake
+> setname cake “cake”
+> setdescription cake “a chocolate cake covered with candles”
+> movething cake kitchen
+
+If we look at our current room with the “look” command again, we should see that our cake is included in the description.
+
+> look
+
+Now try looking at the cake.
+
+> look cake
+You do not see that here.
+
+Note that the input processor does not recognize the cake, even though the cake is indeed in the current room. This is because it does not understand that “cake” is referring to the cake in the room. In order to interact with the cake, we need to grant it some “keywords”. A keyword is a single word name that can be used to reference the entity in a command. In this case, let’s assign two keywords to the cake object: “cake” and “chocolate”.
+
+> addkeyword cake cake
+> addkeyword cake chocolate
+
+Now let’s try looking at the cake, with any of the following commands:
+
+> look cake
+You look at the cake.
+
+> look chocolate
+You look at the cake.
+
+So far, we have created and populated one room. Let’s create another room.
+
+> createroom dining_room
+> setname dining_room “Dining Room”
+> setdescription dining_room “There is a large wooden table in the middle of the room.”
+
+We now have two rooms in our world, but they are not connected. Let’s create an “exit”, which is a connection from one room to another.
+
+> createexit kitchen_to_dining_room
+
+An exit is an entity just like the cake, so it requires some properties to be set, and then must be added to the room it allows the player to exit from.
+
+> setname kitchen_to_dining_room North
+> setdescription kitchen_to_dining_room North
+> addkeyword kitchen_to_dining_room North
+> addkeyword kitchen_to_dining_room north
+> addkeyword kitchen_to_dining_room N
+> addkeyword kitchen_to_dining_room n
+> setdestination kitchen_to_dining_room dining_room
+> addexit kitchen kitchen_to_dining_room
+
+Exits are not bidirectional, so if we don’t want to create a “trapdoor” connection, we need to create an exit that returns the player from the second room to the first room.
+
+> createexit dining_room_to_kitchen
+> setname dining_room_to_kitchen South
+> setdescription dining_room_to_kitchen South
+> addkeyword dining_room_to_kitchen South
+> addkeyword dining_room_to_kitchen south
+> addkeyword dining_room_to_kitchen S
+> addkeyword dining_room_to_kitchen s
+> setdestination dining_room_to_kitchen kitchen
+> addexit dining_room dining_room_to_kitchen
+
+With our previous commands, we have built a virtual world with two rooms. We can move around the world now. Move the player to the second room with the following command.
+
+> go north
+
+Now you are given a description of the dining room. You can move freely between the two rooms in the world. Feel free to play around with these commands on your own, and then when you are ready to exit the program, enter the following:
+
+> exit
+
+That’s it! With the commands covered in this tutorial, you can build a virtual world, populate it with objects you can look at, and move from room to room. Now you can implement features on top of the existing functionality to make the world more interesting.
+
+
+
+=======
+TESTING
+=======
+Building a world with commands can be error prone and time consuming. Fortunately, the initial state of the world can be loaded from a file. We have provided three files to help you test and get started, located in the worlds folder. If you open them in a text editor, you will see a series of inputs in the same format as the ones you entered in the tutorial section above. Load a file when you run the program, like so:
+
+Java:
+> java -jar mud.jar worlds/world_basic_1
+
+You can copy and modify these files in any way you wish to help you test your features.

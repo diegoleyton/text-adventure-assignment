@@ -1,0 +1,7 @@
+You may use whatever development environment you like. Here are some possibilities below, depending on the programming language you’re using:
+
+Java
+====
+1. Download the latest JDK here. 
+2. Download the Eclipse IDE here.  (We've found that the latest version of Netbeans does not support the latest version of the Java JDK, so we don't recommend it as an IDE.)
+3. Once in Eclipse go to (File -> Open Projects) From File System and open the PG Assignment folder. 
