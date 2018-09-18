@@ -1,10 +1,6 @@
 package pocketgems.mud;
 
-import pocketgems.mud.components.DescriptionComponent;
-import pocketgems.mud.components.IdentityComponent;
-import pocketgems.mud.components.LocationComponent;
-import pocketgems.mud.components.PortalComponent;
-import pocketgems.mud.components.RoomComponent;
+import pocketgems.mud.components.*;
 
 public abstract class EntityFactory {
 	public static Entity createRoom() {
@@ -30,6 +26,15 @@ public abstract class EntityFactory {
 		entity.addComponent(new PortalComponent());
 		return entity;
 	}
+
+	public static Entity createItem() {
+		Entity entity = new Entity();
+		entity.addComponent(new IdentityComponent());
+		entity.addComponent(new DescriptionComponent());
+		entity.addComponent(new LocationComponent());
+        entity.addComponent(new ItemComponent());
+		return entity;
+	}
 	
 	// Based on the assumption that there is only one player in a world, we are hardcoding some of the parameters here for convenience.
 	public static Entity createPlayer() {
@@ -45,6 +50,7 @@ public abstract class EntityFactory {
 		entity.addComponent(descriptionComponent);
 		
 		entity.addComponent(new LocationComponent());
+        entity.addComponent(new InventoryComponent());
 		
 		return entity;
 	}

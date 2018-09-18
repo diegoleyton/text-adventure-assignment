@@ -46,4 +46,6 @@ public class Entity {
 	public LocationComponent getLocationComponent() throws ComponentNotFoundException { return getComponent(LocationComponent.class); }
 	public PortalComponent getPortalComponent() throws ComponentNotFoundException { return getComponent(PortalComponent.class); }
 	public RoomComponent getRoomComponent() throws ComponentNotFoundException { return getComponent(RoomComponent.class); }
+	public ItemComponent getItemComponent() { return getComponentOrNull(ItemComponent.class); }
+	public InventoryComponent getInventoryComponent() throws ComponentNotFoundException { return getComponent(InventoryComponent.class); }
 }

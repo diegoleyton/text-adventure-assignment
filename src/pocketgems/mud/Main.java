@@ -12,8 +12,13 @@ public class Main {
 		if (args.length > 0) {
 			gameStateFileName = args[0];
 		}
-		
-		Game game = new Game(new InputProcessor(), EntityFactory.createPlayer(), gameStateFileName);
+
+		CommandProvider commandProvider = new CommandProvider();
+		IInputProcessor inputProcessor = new InputProcessor(commandProvider);
+		Game game = new Game(inputProcessor, EntityFactory.createPlayer());
+
+		commandProvider.SetDefaultCommands(game);
+        game.loadState("worlds/world_basic_4");
 		game.run();
 	}
 }

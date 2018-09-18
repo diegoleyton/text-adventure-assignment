@@ -1,5 +1,6 @@
 package pocketgems.mud;
 
+import java.io.Console;
 import java.util.Scanner;
 
 /*
@@ -11,21 +12,23 @@ public class Game {
 
 	public boolean isRunning;
 	private World world;
-	private InputProcessor inputProcessor;
+	private IInputProcessor inputProcessor;
 	
-	public Game(InputProcessor inputProcessor, Entity player, String gameStateFileName) {
+	public Game(IInputProcessor inputProcessor, Entity player) {
 		this.inputProcessor = inputProcessor;
 		world = new World(player);
-		
-		if (!gameStateFileName.equals("")) {
-			inputProcessor.processInput("load " + gameStateFileName, this);
-		}
 
 		isRunning = false;
 	}
+
+    public void loadState(String gameStateFileName) {
+        if (!gameStateFileName.equals("")) {
+            inputProcessor.processInput("load " + gameStateFileName);
+        }
+    }
 	
 	public void run() {
-		inputProcessor.processInput("look", this);
+		inputProcessor.processInput("look");
 
 		isRunning = true;
 		Scanner scanner = new Scanner(System.in);
@@ -34,7 +37,7 @@ public class Game {
 		while (isRunning) {
 			System.out.print("> ");
 			String input = scanner.nextLine();
-			inputProcessor.processInput(input, this);
+			inputProcessor.processInput(input);
 		}
 
 		scanner.close();
@@ -44,7 +47,7 @@ public class Game {
 		return world;
 	}
 	
-	public InputProcessor getInputProcessor() {
+	public IInputProcessor getInputProcessor() {
 		return inputProcessor;
 	}
 }
