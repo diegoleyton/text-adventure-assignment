@@ -17,7 +17,7 @@ The most important components are:
  - **CommandProvider**: Provides commands for specific inputs. This is the place where each input is defined. This
  gives flexibility in order to configure different inputs.
  - **IInputProcessor**: Interface to process an input. This was created to decouple the dependencies from some commands
- with actual InputProcessor.
+ with the actual InputProcessor.
  - **InputProcessor**: It proccess the input. Logic of each command was removed from here, and a CommandProvider is now
  injected in order to trigger specific commands.
  - **CommandNotFoundException**: Exception thrown when a command was not found by the CommandProvider.
